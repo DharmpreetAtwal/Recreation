@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Treasury from "./pages/Treasury";
+import Announce from "./pages/Announce";
 import { useState } from "react";
 import "./App.css";
 
@@ -12,6 +13,7 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [announcements, setAnnouncements] = useState([]);
 
   const userInfo = [
     {
@@ -85,6 +87,10 @@ function App() {
     { type: "miscellaneousExpense", status: "paid", amount: 7 },
   ];
 
+  let announcementInfo = [
+    { title: "Practice Reminder", author: "John Smith", datetime: "3/18/24 @ 3:00pm", message: "I hope this message finds you well. This is a friendly reminder from Coach John  regarding our upcoming practice session on: 3/24/24 @ 10:00am. Please ensure your availability and readiness for the scheduled practice session. Let's come together with enthusiasm and focus, ready to make the most of our time together. If there are any concerns or questions regarding the practice, feel free to reach out to me directly." },
+  ]
+
   return (
     <>
       <BrowserRouter>
@@ -122,6 +128,7 @@ function App() {
                 email={email}
                 role={role}
                 userInfo={userInfo}
+                announcements={announcementInfo}
               />
             }
           />
@@ -131,6 +138,20 @@ function App() {
               <Treasury
                 userInfo={userInfo}
                 recCenterExpenseInfo={recCenterExpenseInfo}
+              />
+            }
+          />
+          <Route
+            path="announce"
+            element={
+              <Announce
+                firstName={firstName}
+                lastName={lastName}
+                email={email}
+                role={role}
+                userInfo={userInfo}
+                announcements={announcements}
+                setAnnouncements={setAnnouncements}
               />
             }
           />
