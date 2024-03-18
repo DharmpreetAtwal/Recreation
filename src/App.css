@@ -40,3 +40,22 @@
 .read-the-docs {
   color: #888;
 }
+
+.list-group {
+  padding: 3em;
+}
+.card {
+  padding: 1em;
+  text-align: left;
+}
+.card-text {
+  margin-top: 1em;
+}
+.card-subtext {
+  margin-bottom: 0em;
+  color:#7d7d7d;
+}
+.button-container .btn{
+  display: block;
+  margin-top: 1em;
+}

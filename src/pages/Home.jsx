@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Home({ firstName, lastName, email, role, userInfo }) {
+function Home({ firstName, lastName, email, role, userInfo, announcements }) {
   const [sortBy, setSortBy] = useState("paid");
   const [orderBy, setOrderBy] = useState(1);
   const [user, setUser] = useState({});
@@ -34,7 +36,7 @@ function Home({ firstName, lastName, email, role, userInfo }) {
       );
     }
   };
-
+  
   return (
     <>
       {role == "member" ? (
@@ -58,7 +60,21 @@ function Home({ firstName, lastName, email, role, userInfo }) {
               </div>
             )}
           </div>
+          
+          <ul class="list-group">
+            {announcements.map((announcement, index) => (
+              <li key={index} className="list-group-item">
+                <div class="card">
+                  <h5 class="card-title">{announcement.title}</h5>
+                  <p class="card-subtext">Author: {announcement.author} </p>
+                  <p class="card-subtext">{announcement.datetime}</p>
+                  <p class="card-text">{announcement.message}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
+        
       ) : (
         <>
           <h1> Welcome Coach! </h1>
@@ -123,6 +139,22 @@ function Home({ firstName, lastName, email, role, userInfo }) {
                 );
               })}
           </div>
+
+          <ul class="list-group">
+            {announcements.map((announcement, index) => (
+              <li key={index} className="list-group-item">
+                <div class="card">
+                  <h5 class="card-title">{announcement.title}</h5>
+                  <p class="card-subtext">Author: {announcement.author} </p>
+                  <p class="card-subtext">{announcement.datetime}</p>
+                  <p class="card-text">{announcement.message}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <Link to="/announce">
+            <button type="button" class="btn btn-primary">Make Announcement</button>
+          </Link>
         </>
       )}
     </>
