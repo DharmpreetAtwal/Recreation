@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Home({ firstName, lastName, email, role, userInfo, announcements }) {
   const [sortBy, setSortBy] = useState("paid");
@@ -8,9 +8,21 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    userInfo.sort((a, b) => a.attendanceCount < b.attendanceCount);
+    let i = 0;
+
     for (var user of userInfo) {
       if (user.email === email) {
         setUser(user);
+      }
+
+      if (user.role === "member") {
+        if (i <= 9) {
+          user.discountEligible = true;
+          i = i + 1;
+        } else {
+          user.discountEligible = false;
+        }
       }
     }
   }, []);
@@ -36,7 +48,7 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
       );
     }
   };
-  
+
   return (
     <>
       {role == "member" ? (
@@ -60,7 +72,7 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
               </div>
             )}
           </div>
-          
+
           <ul class="list-group">
             {announcements.map((announcement, index) => (
               <li key={index} className="list-group-item">
@@ -74,7 +86,6 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
             ))}
           </ul>
         </div>
-        
       ) : (
         <>
           <h1> Welcome Coach! </h1>
@@ -118,6 +129,7 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
               />
             </div>
           </form>
+          <br></br>
           <div>
             {userInfo
               .filter((user) => user.role == "member")
@@ -130,9 +142,9 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
                       Phone: {user.phone} <br></br>
                       Address: {user.address} <br></br>
                       Paid Count: {user.paidCount} <br></br>
-                      Current/Planned Attendance Count: {
-                        user.attendanceCount
-                      }{" "}
+                      Current/Planned Attendance Count: {user.attendanceCount}
+                      <br></br>
+                      Discount Eligible: {user.discountEligible.toString()}
                       <br></br>
                     </p>
                   </div>
@@ -153,7 +165,9 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
             ))}
           </ul>
           <Link to="/announce">
-            <button type="button" class="btn btn-primary">Make Announcement</button>
+            <button type="button" class="btn btn-primary">
+              Make Announcement
+            </button>
           </Link>
         </>
       )}

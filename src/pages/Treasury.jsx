@@ -2,14 +2,20 @@ import React, { useEffect, useRef } from "react";
 
 function Treasury({ userInfo, recCenterExpenseInfo }) {
   let totalExpenseRef = useRef(0);
+  let totalUnpaidExpenseRef = useRef(0);
 
   useEffect(() => {
     totalExpenseRef.current = 0;
+    totalUnpaidExpenseRef.current = 0;
 
     for (const expense of recCenterExpenseInfo) {
-      totalExpenseRef.current = totalExpenseRef.current + expense.amount;
+      if (expense.status === "paid") {
+        totalExpenseRef.current = totalExpenseRef.current + expense.amount;
+      } else {
+        totalUnpaidExpenseRef.current =
+          totalUnpaidExpenseRef.current + expense.amount;
+      }
     }
-    console.log(totalExpenseRef.current);
   }, []);
 
   return (
@@ -38,7 +44,7 @@ function Treasury({ userInfo, recCenterExpenseInfo }) {
           </tbody>
         </table>
       </div>
-
+      <br></br>
       <table style={{ margin: "auto" }}>
         <tbody>
           <tr>
@@ -46,16 +52,46 @@ function Treasury({ userInfo, recCenterExpenseInfo }) {
           </tr>
 
           {recCenterExpenseInfo.map((expense, i) => {
-            return (
-              <tr key={i}>
-                <td>{expense.type}</td>
-                <td>${expense.amount}</td>
-              </tr>
-            );
+            if (expense.status === "paid") {
+              return (
+                <tr key={i}>
+                  <td>{expense.type}</td>
+                  <td>${expense.amount}</td>
+                </tr>
+              );
+            }
           })}
           <tr>
             <td style={{ borderWidth: "2px" }}> Total Expenses: </td>
             <th style={{ borderWidth: "2px" }}>${totalExpenseRef.current}</th>
+          </tr>
+        </tbody>
+      </table>
+      <br></br>
+
+      <table style={{ margin: "auto" }}>
+        <tbody>
+          <tr>
+            <th style={{ borderWidth: "2px" }}>Unpaid Expense Type</th>{" "}
+            <th style={{ borderWidth: "2px" }}> Amount </th>
+          </tr>
+
+          {recCenterExpenseInfo.map((expense, i) => {
+            if (expense.status === "unpaid") {
+              return (
+                <tr key={i}>
+                  <td>{expense.type}</td>
+                  <td> ${expense.amount}</td>
+                </tr>
+              );
+            }
+          })}
+
+          <tr>
+            <td style={{ borderWidth: "2px" }}> Total Unpaid</td>
+            <td style={{ borderWidth: "2px" }}>
+              ${totalUnpaidExpenseRef.current}
+            </td>
           </tr>
         </tbody>
       </table>

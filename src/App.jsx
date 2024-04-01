@@ -57,7 +57,7 @@ function App() {
       phone: "3846401475",
       address: "Victoria Street 69",
       role: "member",
-      attendanceCount: 8,
+      attendanceCount: 12,
       paidCount: 0,
     },
     {
@@ -83,13 +83,20 @@ function App() {
     { type: "coachExpense", status: "unpaid", amount: 3 },
     { type: "hallExpense", status: "paid", amount: 2 },
     { type: "hallExpense", status: "paid", amount: 2 },
+    { type: "hallExpense", status: "unpaid", amount: 2 },
     { type: "miscellaneousExpense", status: "paid", amount: 4 },
     { type: "miscellaneousExpense", status: "paid", amount: 7 },
   ];
 
   let announcementInfo = [
-    { title: "Practice Reminder", author: "John Smith", datetime: "3/18/24 @ 3:00pm", message: "I hope this message finds you well. This is a friendly reminder from Coach John  regarding our upcoming practice session on: 3/24/24 @ 10:00am. Please ensure your availability and readiness for the scheduled practice session. Let's come together with enthusiasm and focus, ready to make the most of our time together. If there are any concerns or questions regarding the practice, feel free to reach out to me directly." },
-  ]
+    {
+      title: "Practice Reminder",
+      author: "John Smith",
+      datetime: "3/18/24 @ 3:00pm",
+      message:
+        "I hope this message finds you well. This is a friendly reminder from Coach John  regarding our upcoming practice session on: 3/24/24 @ 10:00am. Please ensure your availability and readiness for the scheduled practice session. Let's come together with enthusiasm and focus, ready to make the most of our time together. If there are any concerns or questions regarding the practice, feel free to reach out to me directly.",
+    },
+  ];
 
   return (
     <>
