@@ -132,8 +132,11 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
           <br></br>
           <div>
             {userInfo
-              .filter((user) => user.role == "member")
+              .filter((user) => user.role === "member")
               .map((user) => {
+                {
+                  console.log(user);
+                }
                 return (
                   <div>
                     <p>
@@ -144,7 +147,11 @@ function Home({ firstName, lastName, email, role, userInfo, announcements }) {
                       Paid Count: {user.paidCount} <br></br>
                       Current/Planned Attendance Count: {user.attendanceCount}
                       <br></br>
-                      Discount Eligible: {user.discountEligible.toString()}
+                      {user.discountEligible && (
+                        <p>
+                          Discount Eligible: {user.discountEligible.toString()}{" "}
+                        </p>
+                      )}
                       <br></br>
                     </p>
                   </div>
